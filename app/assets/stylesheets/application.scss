@@ -1,0 +1,22 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+body{
+  background-color: #000;
+}
+
+.bsplash{
+
+  line-height: 150%;
+  // padding: 100px 0px;
+  color: #fff;
+  font-size: 20px;
+}
+
+.page-header small{
+  color: maroon;
+}
+
+.bsplash button{
+  padding: 50px 100px;
+}

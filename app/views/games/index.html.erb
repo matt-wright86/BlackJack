@@ -3,5 +3,8 @@
 </div>
 
 <div class="container text-center bsplash">
-  <button type="button" name="button" class="btn btn-danger btn-lg">Play BlackJack</button>
+
+  <%= link_to "Start Game", games_path,
+        :class => "btn btn-danger btn-lg", method: :post%>
+
 </div>

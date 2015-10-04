@@ -4,9 +4,8 @@ class Game < ActiveRecord::Base
 
   def player_wins?
 
-    player_hand.total > dealer_hand.total
+    player_hand.total > dealer_hand.total && player_hand.total <= 21
 
-    # sum of player card values > sum of dealer card values
   end
 
   def deck
@@ -14,12 +13,6 @@ class Game < ActiveRecord::Base
   end
 
   def build_cards
-    # 52 cards
-    # 2 -> 10
-    # J, Q, K (value 10)
-    # A (value 11)
-    # all have suits of "H", "D", "C", "S"
-
     positions = (1..52).to_a.shuffle
 
     suits = ["H", "D", "C", "S"]
@@ -44,5 +37,13 @@ class Game < ActiveRecord::Base
   def dealer_hand
     hands.find_by player: false
   end
-  
+
+  def p_bust
+    player_hand.total > 21
+  end
+
+  def d_bust
+    dealer_hand.total > 21
+  end
+
 end

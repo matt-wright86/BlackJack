@@ -5,6 +5,8 @@ class GamesController < ApplicationController
 
   def show
      @game = Game.find params[:id]
+
+
   end
 
   def create
@@ -13,14 +15,40 @@ class GamesController < ApplicationController
     player_hand = Hand.create game_id: @game.id, player: true
     dealer_hand = Hand.create game_id: @game.id, player: false
 
-
-    player_hand.cards << @game.deck.first
-    dealer_hand.cards << @game.deck.second
-
-
-
+    player_hand.cards << @game.deck.sample(2)
+    dealer_hand.cards << @game.deck.sample(2)
     redirect_to game_path(id: @game.id)
   end
+
+  def hit
+    @game = Game.find params[:id]
+    # add a card to each hand?
+    @game.player_hand.cards << @game.deck.first
+
+    if @game.dealer_hand.total < @game.player_hand.total && @game.dealer_hand.total < 16
+       @game.dealer_hand.cards << @game.deck.second
+     elsif @game.dealer_hand.total > @game.player_hand.total && @game.dealer_hand.total < 21
+     elsif @game.player_hand.total >= 20
+     elsif @game.player_hand.total == 21
+       @game.dealer_hand.cards << @game.deck.second
+    end
+    redirect_to game_path(id: @game.id)
+  end
+
+  def stay
+    @game = Game.find params[:id]
+    # add a card to each hand?
+    if @game.dealer_hand.total < 21 && @game.dealer_hand.total < @game.player_hand.total
+    @game.dealer_hand.cards << @game.deck.second
+  elsif @game.dealer_hand.total >= @game.player_hand.total
+    elsif @game.player_hand.total >= @game.dealer_hand && @game.player_hand.total >= 21
+    elsif @game.dealer_hand.total >= @game.player_hand.total
+    end
+    redirect_to game_path(id: @game.id)
+  end
+
+
+
 
 
 end

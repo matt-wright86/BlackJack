@@ -1,0 +1,30 @@
+<div class="page-header text-center">
+  <h1>Welcome to BlackJack <small>powered by Rails</small></h1>
+</div>
+
+<div class="greenback text-center">
+
+
+
+    <div class="container">
+        <div class="row text-center">
+
+          <div class="col-xs-6">
+            <h1>Player</h1>
+            <% @game.player_hand.cards.each do |card| %>
+            <%= image_tag "#{card.name}#{card.suit}.png" %>
+            <% end %>
+          </div>
+
+          <div class="col-xs-6">
+            <h1>Dealer</h1>
+            <p><% @game.dealer_hand.cards.each do |card| %>
+            <%= image_tag "#{card.name}#{card.suit}.png" %>
+            <% end %></p>
+          </div>
+
+        </div>
+    </div>
+</div>
+<%= link_to "Hit", hit_game_path(id: @game.id), :class => "btn btn-success btn-lg" %>
+<%= link_to "Back", root_path, :class => "btn btn-danger btn-lg" %>

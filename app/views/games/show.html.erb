@@ -1,18 +1,58 @@
 <div class="page-header text-center">
   <h1>Welcome to BlackJack <small>powered by Rails</small></h1>
-  <%= link_to "Back", root_path, :class => "btn btn-danger btn-lg" %>
 </div>
 
+<div class="bbb text-center">
+  <% if @game.player_wins? %>
+    Player Wins
+  <% else %>
+    Dealer Wins
+  <% end %>
+</div>
+
+<div class="bust text-center">
+  <% if @game.p_bust %>
+    Player Bust
+  <% elsif @game.d_bust %>
+    Dealer Bust
+  <% end %>
+</div>
+
+
 <div class="greenback text-center">
-  <%= link_to "Hit", root_path, :class => "btn btn-success btn-lg" %>
     <div class="container">
         <div class="row text-center">
+
           <div class="col-xs-6">
-            <h1>Player</h1>
+            <h1>Player - <%=@game.player_hand.total%></h1>
+            <p><% @game.player_hand.cards.each do |card| %>
+            <%= image_tag "#{card.name}#{card.suit}.png" %>
+            <% end %></p>
           </div>
+
           <div class="col-xs-6">
-            <h1>Dealer</h1>
+            <h1>Dealer - <%=@game.dealer_hand.total%></h1>
+            <p><% @game.dealer_hand.cards.each do |card| %>
+            <%= image_tag "#{card.name}#{card.suit}.png" %>
+            <% end %></p>
           </div>
+
         </div>
     </div>
 </div>
+
+<%unless @game.player_hand.total >= 21 %>
+<%= link_to "Stay", stay_game_path(id: @game.id), :class => "btn btn-success btn-lg", method: :post %>
+<%= link_to "Hit", hit_game_path(id: @game.id), :class => "btn btn-success btn-lg", method: :post %>
+<%else @game.player_hand.total >= 21%>
+<%end%>
+
+<%= link_to "Back", root_path, :class => "btn btn-danger btn-lg"%>
+
+<%if @game.player_hand.total >= 21 %>
+<%= link_to "New Game", games_path,
+      :class => "btn btn-danger btn-lg", method: :post%>
+      <%elsif @game.dealer_hand.total >= 21%>
+      <%= link_to "New Game", games_path,
+            :class => "btn btn-danger btn-lg", method: :post%>
+<%end%>

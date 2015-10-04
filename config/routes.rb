@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   # get 'game/index'
   get 'games/:id' => 'games#show', as: :game
   post 'games' => 'games#create', as: :games
+  post 'games/:id/hit' =>'games#hit', as: :hit_game
+  post 'games/:id/stay' =>'games#stay', as: :stay_game
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

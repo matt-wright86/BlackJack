@@ -18,6 +18,10 @@
   <% end %>
 </div>
 
+<div class="bjack text-center">
+  <%=@game.blackjack%>
+</div>
+
 
 <div class="greenback text-center">
     <div class="container">
@@ -41,7 +45,7 @@
     </div>
 </div>
 
-<%unless @game.player_hand.total >= 21 %>
+<%unless @game.player_hand.total >= 21 or @game.dealer_hand.total >= 21 %>
 <%= link_to "Stay", stay_game_path(id: @game.id), :class => "btn btn-success btn-lg", method: :post %>
 <%= link_to "Hit", hit_game_path(id: @game.id), :class => "btn btn-success btn-lg", method: :post %>
 <%else @game.player_hand.total >= 21%>

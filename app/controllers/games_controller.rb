@@ -38,11 +38,11 @@ class GamesController < ApplicationController
   def stay
     @game = Game.find params[:id]
     # add a card to each hand?
-    if @game.dealer_hand.total < 21 && @game.dealer_hand.total < @game.player_hand.total
-    @game.dealer_hand.cards << @game.deck.second
-  elsif @game.dealer_hand.total >= @game.player_hand.total
-    elsif @game.player_hand.total >= @game.dealer_hand && @game.player_hand.total >= 21
-    elsif @game.dealer_hand.total >= @game.player_hand.total
+    if @game.dealer_hand.total < 21 && @game.dealer_hand.total < @game.player_hand.total && @game.player_hand.total <= 16
+       @game.dealer_hand.cards << @game.deck.second
+    elsif @game.dealer_hand.total < @game.player_hand.total && @game.dealer_hand.total <= 16
+       @game.dealer_hand.cards << @game.deck.second
+    elsif @game.dealer_hand.total >= 17
     end
     redirect_to game_path(id: @game.id)
   end

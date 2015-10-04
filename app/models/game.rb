@@ -46,4 +46,10 @@ class Game < ActiveRecord::Base
     dealer_hand.total > 21
   end
 
+  def blackjack
+    if dealer_hand.total == 21 || player_hand.total == 21
+      "Blackjack"
+    end
+  end
+
 end

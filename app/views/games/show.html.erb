@@ -35,7 +35,7 @@
           </div>
 
           <div class="col-xs-6">
-            <h1>Dealer - <%=@game.dealer_hand.total%></h1>
+            <h1>Dealer</h1>
             <p><% @game.dealer_hand.cards.each do |card| %>
             <%= image_tag "#{card.name}#{card.suit}.png" %>
             <% end %></p>

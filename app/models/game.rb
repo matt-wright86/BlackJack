@@ -2,12 +2,6 @@ class Game < ActiveRecord::Base
   has_many :cards
   has_many :hands
 
-  def player_wins?
-
-    player_hand.total > dealer_hand.total && player_hand.total <= 21
-
-  end
-
   def deck
     cards.where(hand_id: nil).order("position")
   end
@@ -50,6 +44,13 @@ class Game < ActiveRecord::Base
     if dealer_hand.total == 21 || player_hand.total == 21
       "Blackjack"
     end
+  end
+
+
+  def player_wins?
+
+    player_hand.total > dealer_hand.total && player_hand.total <= 21
+
   end
 
 end

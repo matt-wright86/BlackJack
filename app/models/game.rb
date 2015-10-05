@@ -48,9 +48,18 @@ class Game < ActiveRecord::Base
 
 
   def player_wins?
-
-    player_hand.total > dealer_hand.total && player_hand.total <= 21
-
+    if player_hand.total > dealer_hand.total && player_hand.total <= 21
+      return "Player Wins"
+    elsif dealer_hand.total > player_hand.total && dealer_hand.total <=21
+      return "Dealer Wins"
+    elsif dealer_hand.total == player_hand.total
+      return "Push"
+    elsif d_bust && player_hand.total <= 21
+      return "Player Wins"
+    elsif p_bust && dealer_hand.total <= 21
+      return "Dealer Wins"
+    end
   end
+
 
 end

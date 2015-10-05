@@ -1,27 +1,24 @@
 <div class="page-header text-center">
   <h1>Welcome to BlackJack <small>powered by Rails</small></h1>
 </div>
+<div class="goldtxt">
 
-<div class="bbb text-center">
-  <% if @game.player_wins? %>
-    Player Wins
-  <% else %>
-    Dealer Wins
-  <% end %>
+  <div class="bbb text-center">
+    <%= @game.player_wins? %>
+  </div>
+
+  <div class="bust text-center">
+    <% if @game.p_bust %>
+      Player Bust
+    <% elsif @game.d_bust %>
+      Dealer Bust
+    <% end %>
+  </div>
+
+  <div class="bjack text-center">
+    <%=@game.blackjack%>
+  </div>
 </div>
-
-<div class="bust text-center">
-  <% if @game.p_bust %>
-    Player Bust
-  <% elsif @game.d_bust %>
-    Dealer Bust
-  <% end %>
-</div>
-
-<div class="bjack text-">
-  <%=@game.blackjack%>
-</div>
-
 
 <div class="greenback text-center">
     <div class="container">
@@ -35,7 +32,7 @@
           </div>
 
           <div class="col-xs-6">
-            <h1>Dealer</h1>
+            <h1>Dealer - <%=@game.dealer_hand.total%></h1>
             <p><% @game.dealer_hand.cards.each do |card| %>
             <%= image_tag "#{card.name}#{card.suit}.png" %>
             <% end %></p>
